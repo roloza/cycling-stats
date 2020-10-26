@@ -25,3 +25,11 @@ Route::post('/riders/add-pcm-riders', RiderController::class . '@addPcmRiders')-
 Route::get('/teams', TeamController::class . '@index')->name('getTeams');
 Route::get('/teams/{id}', TeamController::class . '@show')->name('getTeamById');
 Route::post('/teams/add', TeamController::class . '@addTeams')->name('addTeams');
+
+/* Seasons */
+Route::post('/seasons/add', \App\Http\Controllers\SeasonController::class . '@addSeasons')->name('addSeasons');
+
+/* Competitions */
+Route::get('/competitions', \App\Http\Controllers\CompetitionController::class . '@index')->name('getCompetitions');
+Route::get('/competitions/{id}', \App\Http\Controllers\CompetitionController::class . '@show')->name('getCompetitionById');
+Route::post('/competitions/add', \App\Http\Controllers\CompetitionController::class . '@addCompetitions')->name('addCompetitions');

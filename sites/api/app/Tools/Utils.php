@@ -26,7 +26,7 @@ class Utils {
 
     public static function parseCompetitionDate($date) {
         $date = str_replace("/Date(", "", $date);
-        $date = str_replace("000)/", "", $date);
+        $date = (int)str_replace("000)/", "", $date) + 7200;
         return [
             'date'  => date('Y-m-d H:i:s', $date),
             'year'  => date('Y', $date)
