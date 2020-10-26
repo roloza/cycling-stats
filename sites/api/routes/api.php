@@ -1,6 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\RiderController;
+use App\Http\Controllers\TeamController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+/* riders */
+Route::get('/riders', RiderController::class . '@index')->name('getRiders');
+Route::get('/riders/{id}', RiderController::class . '@show')->name('getRiderById');
+Route::post('/riders/add', RiderController::class . '@addRiders')->name('addRiders');
+Route::post('/riders/add-pcm-riders', RiderController::class . '@addPcmRiders')->name('addPcmRiders');
+
+/* Teams */
+Route::get('/teams', TeamController::class . '@index')->name('getTeams');
+Route::get('/teams/{id}', TeamController::class . '@show')->name('getTeamById');
+Route::post('/teams/add', TeamController::class . '@addTeams')->name('addTeams');
