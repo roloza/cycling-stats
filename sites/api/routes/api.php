@@ -33,3 +33,15 @@ Route::post('/seasons/add', \App\Http\Controllers\SeasonController::class . '@ad
 Route::get('/competitions', \App\Http\Controllers\CompetitionController::class . '@index')->name('getCompetitions');
 Route::get('/competitions/{id}', \App\Http\Controllers\CompetitionController::class . '@show')->name('getCompetitionById');
 Route::post('/competitions/add', \App\Http\Controllers\CompetitionController::class . '@addCompetitions')->name('addCompetitions');
+
+/* Races */
+Route::get('/races/{competitionId}', \App\Http\Controllers\RaceController::class . '@show')->name('getRaces');
+Route::post('/races/add/{competitionId}', \App\Http\Controllers\RaceController::class . '@addRaces')->name('addRaces');
+
+/* Events */
+Route::get('/events/{raceId}', \App\Http\Controllers\EventController::class . '@show')->name('getEvents');
+Route::post('/events/add/{raceId}', \App\Http\Controllers\EventController::class . '@addEvents')->name('addEvents');
+
+/* Results */
+Route::get('/results/{eventId}', \App\Http\Controllers\ResultController::class . '@show')->name('getResults');
+Route::post('/results/add/{eventId}', \App\Http\Controllers\ResultController::class . '@addResults')->name('addResults');
