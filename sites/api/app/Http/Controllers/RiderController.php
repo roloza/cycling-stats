@@ -57,7 +57,7 @@ class RiderController extends Controller
      * @return mixed
      */
     public function show($id) {
-        return Rider::where('id', $id)->firstOrFail();
+        return Rider::where('id', $id)->with('pcm')->firstOrFail();
     }
 
     /**

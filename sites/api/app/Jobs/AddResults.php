@@ -77,7 +77,7 @@ class AddResults implements ShouldQueue
                     'iso_code' => $result->IsoCode2,
                     'team_name' => $result->TeamName,
                     'team_id' => $team ? $team->id : null,
-                    'point_pcr' => $result->TeamPointPcR,
+                    'point_pcr' => $result->PointPcR,
                     'retire' => $result->Irm
                 ]);
             }
