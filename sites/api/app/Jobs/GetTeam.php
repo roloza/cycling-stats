@@ -34,6 +34,9 @@ class GetTeam implements ShouldQueue
      */
     public function handle()
     {
+//        sleep((int)rand(1,5));
+        sleep(1);
+
         $options = [
             'disciplineCode' => 'ROA',
             'culture' => 'fr',

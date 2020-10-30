@@ -39,6 +39,9 @@ class AddRaces implements ShouldQueue
      */
     public function handle()
     {
+//        sleep((int)rand(1,5));
+        sleep(1);
+
         $options = [
             'disciplineId' => '10',
             'competitionId' => $this->competitionId,

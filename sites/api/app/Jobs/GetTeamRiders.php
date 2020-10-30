@@ -39,6 +39,8 @@ class GetTeamRiders implements ShouldQueue
      */
     public function handle()
     {
+//        sleep((int)rand(1,5));
+        sleep(1);
         $urlToDl = env('UCI_HOST') . env('UCI_GET_TEAM_HISTORY') . '?disciplineCode=' . $this->team->discipline_code . '&parentId=' . $this->team->team_parent_id. '&historyId=' . $this->team->team_history_id;
         Log::debug($urlToDl);
 

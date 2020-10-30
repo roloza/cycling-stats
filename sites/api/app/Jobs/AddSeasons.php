@@ -32,6 +32,9 @@ class AddSeasons implements ShouldQueue
      */
     public function handle()
     {
+//        sleep((int)rand(2,5));
+        sleep(1);
+
         $response = json_decode(Utils::download(env('UCI_RIDE_HOST') . env('UCI_RIDE_GET_DISCIPLINE_SEASONS') . '?disciplineId=10', 0));
 
         foreach($response as $season) {

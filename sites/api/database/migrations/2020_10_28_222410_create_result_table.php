@@ -18,17 +18,17 @@ class CreateResultTable extends Migration
 
             $table->integer('event_id');
             $table->integer('result_id');
-            $table->integer('rank')->nullable();
+            $table->integer('rank');
             $table->string('name');
-            $table->string('country');
-            $table->string('age');
+            $table->string('country')->nullable();
+            $table->string('age')->nullable();
             $table->string('rider_id')->nullable();
             $table->string('value')->nullable();
             $table->string('country_name')->nullable();
             $table->string('iso_code')->nullable();
             $table->string('team_name')->nullable();
             $table->string('team_id')->nullable();
-            $table->string('point_pcr')->nullable();
+            $table->integer('point_pcr')->nullable();
             $table->string('retire')->nullable();
 
             $table->timestamps();

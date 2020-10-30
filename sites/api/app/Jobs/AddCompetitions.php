@@ -39,6 +39,8 @@ class AddCompetitions implements ShouldQueue
      */
     public function handle()
     {
+//        sleep((int)rand(1,5));
+        sleep(1);
         $res = Season::select('season_id')->where('year', $this->year)->firstOrFail();
         $seasonId = $res->season_id;
         $options = [
