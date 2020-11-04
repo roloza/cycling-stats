@@ -12,9 +12,18 @@ mkdir  /var/www/html/sites/cycling-stats/logs/
 sudo ln -s /var/www/html/sites/cycling-stats/host/cycling-stats.conf /etc/nginx/sites-enabled/cycling-stats.conf 
 sudo ln -s /var/www/html/sites/cycling-stats/host/cycling-stats.conf /etc/nginx/sites-available/cycling-stats.conf 
 
+sudo ln -s /var/www/html/sites/cycling-stats/host/cycling-stats-web.conf /etc/nginx/sites-enabled/cycling-stats-web.conf 
+sudo ln -s /var/www/html/sites/cycling-stats/host/cycling-stats-web.conf /etc/nginx/sites-available/cycling-stats-web.conf 
+
 sudo service nginx restart
 
 sudo chmod -R 755 /var/www/html/sites/cycling-stats/sites/api/storage/
+
+sudo chown -R roloza:www-data /var/www/html/sites/cycling-stats/sites/web/storage
+sudo chown -R roloza:www-data /var/www/html/sites/cycling-stats/sites/web/bootstrap/cache
+sudo chmod -R 775 /var/www/html/sites/cycling-stats/sites/web/storage
+sudo chmod -R 775 /var/www/html/sites/cycling-stats/sites/web/bootstrap/cache
+
 ```
 ## Queue
 
