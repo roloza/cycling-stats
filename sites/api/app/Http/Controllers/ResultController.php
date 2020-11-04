@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ResultResource;
 use App\Jobs\AddResults;
 use App\Models\Result;
 use Illuminate\Http\Request;
@@ -15,9 +16,10 @@ class ResultController extends Controller
      */
     public function show($eventId)
     {
-        return Result::where('event_id', $eventId)
+        $result = Result::where('event_id', $eventId)
             ->orderBy('rank', 'ASC')
             ->get();
+        return ResultResource::collection($result);
     }
 
     /**

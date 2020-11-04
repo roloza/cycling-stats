@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\RaceResource;
 use App\Jobs\AddRaces;
 use App\Models\Race;
 use Illuminate\Http\Request;
@@ -15,9 +16,10 @@ class RaceController extends Controller
      * @return mixed
      */
     public function show($competitionId) {
-        return Race::where('competition_id', $competitionId)
+        $race = Race::where('competition_id', $competitionId)
             ->orderBy('start_at', 'DESC')
             ->get();
+        return RaceResource::collection($race);
     }
 
     /**

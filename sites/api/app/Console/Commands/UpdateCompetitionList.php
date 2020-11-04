@@ -40,6 +40,9 @@ class UpdateCompetitionList extends Command
      */
     public function handle()
     {
+
+        sleep((int)rand(1,5));
+
         Log::debug('[UpdateCompetitionList] Début du traitement (' . date("Y-m-d H:i:s") . ')');
         Log::debug('[UpdateCompetitionList] Arguments: ' . json_encode($this->arguments()));
         Log::debug('[UpdateCompetitionList] Options: ' . json_encode($this->options()));
@@ -47,8 +50,7 @@ class UpdateCompetitionList extends Command
         $year = $this->argument('year');
         $url = route('addCompetitions', ['year' => $year]); // On rajoute les nouvelles compétitions
         $response = Utils::download($url, 1);
-        Log::debug('[UpdateCompetitionList] Fin du traitement (' . date("Y-m-d H:i:s") . ')');
 
-        return 0;
+        Log::debug('[UpdateCompetitionList] Fin du traitement (' . date("Y-m-d H:i:s") . ')');
     }
 }

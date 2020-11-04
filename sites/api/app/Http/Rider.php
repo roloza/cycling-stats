@@ -30,6 +30,6 @@ class Rider extends Model
 
     public function pcm()
     {
-        return $this->belongsTo(Pcm::class, 'id_pcm');
+        return $this->hasOne(Pcm::class, 'id', 'id_pcm');
     }
 }

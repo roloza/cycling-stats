@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\TeamResource;
 use App\Jobs\GetTeam;
 use App\Team;
 use Illuminate\Http\Request;
@@ -54,7 +55,7 @@ class TeamController extends Controller
             $queryTeam->where('fullname','like','%' . $request['name'] . '%');
         }
 
-        return $queryTeam->paginate(50);
+        return TeamResource::collection($queryTeam->paginate(50));
     }
 
     /**
@@ -63,7 +64,8 @@ class TeamController extends Controller
      * @return mixed
      */
     public function show($id) {
-        return Team::where('id', $id)->firstOrFail();
+        $team = Team::where('id', $id)->firstOrFail();
+        return TeamResource::make($team);
     }
 
     /**

@@ -21,4 +21,14 @@ class Race extends Model
         'race_code',
         'race_name'
     ];
+
+    public function competition()
+    {
+        return $this->belongsTo(Competition::class, 'competition_id', 'competition_id');
+    }
+
+    public function event()
+    {
+        return $this->hasMany(Event::class, 'race_id', 'race_id');
+    }
 }

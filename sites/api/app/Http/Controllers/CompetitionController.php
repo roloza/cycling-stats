@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CompetitionResource;
 use App\Jobs\AddCompetitions;
 use App\Models\Competition;
 use Illuminate\Http\Request;
@@ -85,8 +86,7 @@ class CompetitionController extends Controller
             $queryCompetition->where('is_done','=', $request['isDone']);
         }
 
-
-        return $queryCompetition->paginate(50);
+        return CompetitionResource::collection($queryCompetition->paginate(50));
     }
 
     /**
@@ -95,7 +95,8 @@ class CompetitionController extends Controller
      * @return mixed
      */
     public function show($id) {
-        return Competition::where('id', $id)->firstOrFail();
+        $competition = Competition::where('competition_id', $id)->firstOrFail();
+        return CompetitionResource::make($competition);
     }
     /**
      * Ajoute les nouvelles compétitions trouvées depuis l'API UCI

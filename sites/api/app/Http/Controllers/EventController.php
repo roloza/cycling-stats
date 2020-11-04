@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\EventResource;
 use App\Jobs\AddEvents;
 use App\Models\Event;
 use Illuminate\Http\Request;
@@ -19,9 +20,10 @@ class EventController extends Controller
      */
     public function show($raceId)
     {
-        return Event::where('race_id', $raceId)
+        $events = Event::where('race_id', $raceId)
             ->orderBy('event_name', 'ASC')
             ->get();
+        return EventResource::collection($events);
     }
 
     /**

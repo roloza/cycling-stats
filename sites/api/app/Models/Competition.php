@@ -28,4 +28,10 @@ class Competition extends Model
         'date',
         'count_stages'
     ];
+
+    public function race()
+    {
+        return $this->hasMany(Race::class, 'competition_id', 'competition_id');
+    }
+
 }

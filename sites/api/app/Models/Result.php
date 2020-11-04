@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Rider;
+use App\Team;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -27,4 +29,19 @@ class Result extends Model
         'point_pcr',
         'retire'
     ];
+
+    public function event()
+    {
+        return $this->belongsTo(Event::class, 'event_id', 'event_id');
+    }
+
+    public function rider()
+    {
+        return $this->hasOne(Rider::class, 'id', 'rider_id');
+    }
+
+    public function team()
+    {
+        return $this->hasOne(Team::class, 'id', 'team_id');
+    }
 }

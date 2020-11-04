@@ -88,7 +88,11 @@ class UpdateEventList extends Command
         }
 
         // On lance la récupération des events
+        $cpt = 0;
+        $total = sizeof($raceIds);
         foreach ($raceIds as $raceId) {
+            $cpt++;
+            Log::debug('[UpdateEventList] Récupération des events: [' . $cpt . '/' . $total . ']');
             if ($newOnly) { // On ne récupère que les nouvelles étape/course. Les anciennes ne sont pas MAJ
                 $races = Event::where('race_id', $raceId)->get();
                 if ($races->count() !== 0) {
@@ -96,7 +100,6 @@ class UpdateEventList extends Command
                     continue;
                 }
             }
-
             $url = route('addEvents', ['raceId' => $raceId]);
             Log::debug('[UpdateEventList] Route: ' . $url);
             $response = Utils::download($url, 1);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\RiderResource;
 use App\Jobs\AddPcmRiders;
 use App\Jobs\GetTeamRiders;
 use App\Rider;
@@ -48,7 +49,7 @@ class RiderController extends Controller
             $queryRider->where('nationality','=',$request['country']);
         }
 
-        return $queryRider->paginate(50);
+        return RiderResource::collection($queryRider->paginate(50));
     }
 
     /**
@@ -57,7 +58,9 @@ class RiderController extends Controller
      * @return mixed
      */
     public function show($id) {
-        return Rider::where('id', $id)->with('pcm')->firstOrFail();
+        $rider = Rider::where('id', $id)->firstOrFail();
+        return RiderResource::make($rider);
+
     }
 
     /**

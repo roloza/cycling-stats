@@ -3,10 +3,13 @@
 namespace App\Tools;
 
 use Exception;
+use Illuminate\Support\Facades\Log;
 
 class Utils {
 
     public static function Download($url, $type, $options = []) {
+        Log::debug('[Utils] Download: ' . $url . ' - Options: ' . json_encode($options));
+
         $postvars = '';
         foreach($options as $key => $value) {
             $postvars .= $key . "=" . $value . "&";
@@ -18,25 +21,38 @@ class Utils {
             curl_setopt($ch, CURLOPT_POSTFIELDS, $postvars);
         }
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_USERAGENT, self::randomUserAgent());
 
+        // On essai de télécharger 3 fois la page
+        $attempt = 0;
+        do {
+            curl_setopt($ch, CURLOPT_USERAGENT, self::randomUserAgent());
+            $attempt++;
+            Log::debug('[Utils] Essai : ' . $attempt);
+            $response = curl_exec ($ch);
 
-        $response = curl_exec ($ch);
+            $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-        $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-
-        // Vérification du code d'état HTTP
-        if (!curl_errno($ch)) {
-            switch ($http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE)) {
-                case 200:  # OK
-                    return $response;
-                    break;
-                default:
-                    throw new Exception('Invalid status code : ' . $http_code);
+            // Vérification du code d'état HTTP
+            if (!curl_errno($ch)) {
+                switch ($http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE)) {
+                    case 200:  # OK
+                        curl_close ($ch);
+                        return $response;
+                        break;
+                    case 302:
+                    case 301:
+                        $attempt = 100;
+                        break;
+                    default:
+                        $sleep = (int)rand(3,8) * $attempt;
+                        Log::debug('[Utils][' . $http_code .'] Erreur lors du téléchargement : délais attente: ' . $sleep . 'sec');
+                        sleep($sleep);
+                }
             }
-        }
 
+        } while($attempt <= 3);
         curl_close ($ch);
+        Log::error('[Utils][' . $http_code .'] Erreur lors du téléchargement de : ' . $url . ' - Options: ' . json_encode($options));
     }
 
     public static function parseCompetitionDate($date) {

@@ -98,7 +98,11 @@ class UpdateRaceList extends Command
         }
 
         // On lance la récupération des courses
+        $cpt = 0;
+        $total = sizeof($competitionsIds);
         foreach ($competitionsIds as $competitionId) {
+            $cpt++;
+            Log::debug('[UpdateRaceList] Récupération des courses: [' . $cpt . '/' . $total . ']');
             if ($newOnly) { // On ne récupère que les nouvelles courses. Les anciennes ne sont pas MAJ
                 $races = Race::where('competition_id', $competitionId)->get();
                 if ($races->count() !== 0) {
